@@ -1,6 +1,5 @@
 <?php
-$csrf_token = bin2hex(random_bytes(32));
-$_SESSION['csrf_token'] = $csrf_token;
+$csrf_token = Middleware::generateCsrfToken();
 $error = Flash::get('error');
 ?>
 <div class="auth-page">

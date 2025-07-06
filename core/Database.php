@@ -4,13 +4,9 @@ class Database {
     private $pdo;
 
     private function __construct() {
-        $host = 'localhost';
-        $db = 'intelboard_core';
-        $user = 'intelboard_user';
-        $pass = '000000xz';
-        $charset = 'utf8mb4';
+        $config = require __DIR__ . '/../config/config.php';
 
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        $dsn = "mysql:host={$config['db_host']};dbname={$config['db_name']};charset={$config['db_charset']}";
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -18,7 +14,7 @@ class Database {
         ];
 
         try {
-            $this->pdo = new PDO($dsn, $user, $pass, $options);
+            $this->pdo = new PDO($dsn, $config['db_user'], $config['db_pass'], $options);
         } catch (PDOException $e) {
             die('Database connection failed: ' . $e->getMessage());
         }

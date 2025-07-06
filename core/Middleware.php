@@ -8,6 +8,12 @@ class Middleware {
         }
     }
 
+    public static function generateCsrfToken() {
+        $token = bin2hex(random_bytes(32));
+        $_SESSION['csrf_token'] = $token;
+        return $token;
+    }
+
     public static function auth() {
         if (!isset($_SESSION['user_id'])) {
             header('Location: /login');
